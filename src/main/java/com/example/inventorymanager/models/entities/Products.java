@@ -1,8 +1,12 @@
 package com.example.inventorymanager.models.entities;
 
+import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +19,10 @@ public class Products {
   private String description;
   private String price;
   private String quantity;
+
+  @ManyToMany
+  @JoinTable(name = "requests_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "request_id"))
+  private List<Requests> requests;
 
   public Products(Long id, String name, String description, String price, String quantity) {
     this.id = id;

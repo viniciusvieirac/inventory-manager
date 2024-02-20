@@ -1,15 +1,23 @@
 package com.example.inventorymanager.models.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "suppliers")
 public class Suppliers {
+  @Id
+  @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
   private Long id;
   private String name;
   private String address;
   private String contact;
+
+  @OneToOne(mappedBy = "suppliers")
+  private Requests requests;
 
   public Suppliers(Long id, String name, String address, String contact) {
     this.id = id;
