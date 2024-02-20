@@ -1,4 +1,4 @@
-package com.example.inventorymanager.models.repositories;
+package com.example.inventorymanager.models.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
