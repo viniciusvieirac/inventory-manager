@@ -8,10 +8,8 @@ public class ProductsNotFoundException extends RuntimeException {
   /**
    * Constructs a new ProductsNotFoundException with the specified detail message.
    * 
-   * @param message The detail message (which is saved for later retrieval by the
-   *                getMessage() method).
    */
-  public ProductsNotFoundException(String message) {
-    super(message);
+  public ProductsNotFoundException() {
+    super("Produto não encontrado!");
   }
 }

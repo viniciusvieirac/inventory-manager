@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.inventorymanager.controller.dto.ProductsDTO;
+import com.example.inventorymanager.exceptions.ProductsNotFoundException;
 import com.example.inventorymanager.models.entities.Products;
 import com.example.inventorymanager.service.ProductsService;
 
@@ -34,10 +35,9 @@ public class ProductsController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getProductById(@PathVariable Long id) {
-    Optional<Products> product = productsService.getProductById(id);
-    ProductsDTO productDTO = ProductsDTO.fromEntity(product);
-    return ResponseEntity.ok(productDTO);
+  public ResponseEntity<?> getProductById(@PathVariable Long id) throws ProductsNotFoundException {
+    Optional<Products> productById = productsService.getProductById(id);
+    return ResponseEntity.ok(ProductsDTO.fromEntity(productById.orElseThrow(ProductsNotFoundException::new)));
   }
 
 }
