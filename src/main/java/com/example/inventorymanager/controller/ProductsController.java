@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.inventorymanager.controller.dto.ProductsDTO;
 import com.example.inventorymanager.models.entities.Products;
 import com.example.inventorymanager.service.ProductsService;
 
@@ -23,10 +24,11 @@ public class ProductsController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Products>>  getProducts() {
-    return productsService.getProducts();
+  public ResponseEntity<List<ProductsDTO>> getProducts() {
+    List<Products> allProducts = productsService.getProducts();
+    List<ProductsDTO> allProductsDTO = allProducts.stream().map(ProductsDTO::fromEntity).toList();
+    return ResponseEntity.ok(allProductsDTO);
+
   }
 
-  @GetMapping
-  public Products
 }
