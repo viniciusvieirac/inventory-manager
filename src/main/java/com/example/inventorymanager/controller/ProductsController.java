@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,7 +59,7 @@ public class ProductsController {
   @GetMapping("/{id}")
   public ResponseEntity<ProductsDTO> getProductById(@PathVariable Long id) throws ProductsNotFoundException {
     Products productById = productsService.getProductById(id)
-        .orElseThrow(() -> new ProductsNotFoundException("Produto não encontrado com o ID: " + id));
+        .orElseThrow(() -> new ProductsNotFoundException());
     return ResponseEntity.ok(ProductsDTO.fromEntity(productById));
   }
 
@@ -87,5 +88,15 @@ public class ProductsController {
   public ResponseEntity<ProductsDTO> updateProduct(@PathVariable Long id, @RequestBody ProductsDTO productsDTO) {
     Products updatedProduct = productsService.updateProduct(id, productsDTO.toEntity());
     return ResponseEntity.ok(ProductsDTO.fromEntity(updatedProduct));
+  }
+
+  /*
+   * Deletes a product by its ID.
+   */
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    productsService.deleteProduct(id);
+    return ResponseEntity.noContent().build();
   }
 }

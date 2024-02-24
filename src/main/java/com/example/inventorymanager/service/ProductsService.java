@@ -75,6 +75,14 @@ public class ProductsService {
           }
           return productsRepository.save(existingProduct);
         })
-        .orElseThrow(() -> new ProductsNotFoundException("Produto não encontrado com o ID: " + productId));
+        .orElseThrow(() -> new ProductsNotFoundException());
+  }
+
+  /*
+   * Deletes a product by its ID.
+   */
+
+  public void deleteProduct(Long productId) {
+    productsRepository.deleteById(productId);
   }
 }
